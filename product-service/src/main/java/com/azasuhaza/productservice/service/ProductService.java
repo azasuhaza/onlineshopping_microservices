@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
 
-	private final ProductRepository prodRepo;
+	private ProductRepository prodRepo;
 	
 	public void createProduct(ProductRequest productRequest) {
 		
