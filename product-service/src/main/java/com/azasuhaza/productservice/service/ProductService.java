@@ -10,6 +10,7 @@ import com.azasuhaza.productservice.dto.ProductResponse;
 import com.azasuhaza.productservice.model.Product;
 import com.azasuhaza.productservice.repos.ProductRepository;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
 
-	private ProductRepository prodRepo;
+	private final ProductRepository prodRepo;
 	
 	public void createProduct(ProductRequest productRequest) {
 		
