@@ -1,4 +1,4 @@
-package com.azsuhaza.productservice;
+package com.azasuhaza.productservice;
 
 import org.junit.jupiter.api.Test;
 
