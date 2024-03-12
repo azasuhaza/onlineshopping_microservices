@@ -1,8 +1,11 @@
 package com.azasuhaza.productservice.exceptions;
 
+import org.springframework.stereotype.Component;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@Component
 @AllArgsConstructor
 @Data
 public class ProductException extends RuntimeException {
@@ -16,5 +19,8 @@ public class ProductException extends RuntimeException {
 	public ProductException(String errorCode, String message) {
 		super(message);
 		this.errorCode=errorCode;
+	}
+	
+	public ProductException() {
 	}
 }
