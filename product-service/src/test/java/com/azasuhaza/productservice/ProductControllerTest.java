@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,9 @@ public class ProductControllerTest {
 	@MockBean
 	private ProductService productService;
 
+    @InjectMocks
+    ProductController underTest;
+    
 	@Before
 	public void before() {
 	    MockitoAnnotations.initMocks(this);
