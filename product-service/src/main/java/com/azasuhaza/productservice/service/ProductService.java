@@ -3,11 +3,15 @@ package com.azasuhaza.productservice.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 
 import com.azasuhaza.productservice.dto.ProductRequest;
 import com.azasuhaza.productservice.dto.ProductResponse;
+import com.azasuhaza.productservice.exceptions.CroissantsNameException;
+import com.azasuhaza.productservice.exceptions.DAOLayerException;
+import com.azasuhaza.productservice.exceptions.NoSuchElementException;
 import com.azasuhaza.productservice.exceptions.ProductControllerException;
 import com.azasuhaza.productservice.exceptions.ProductServiceException;
 import com.azasuhaza.productservice.model.Product;
@@ -77,18 +81,34 @@ public class ProductService {
 
 	public ProductResponse getProductById(String id) {
 		
-		try {
-			Product product = prodRepo.findById(id).get();
-			return mapToProductResponse(product);
-		} catch(IllegalArgumentException e) {
-			
-			throw new ProductServiceException("207","ProductService exception- products " + id + " not exist");
-		} catch (java.util.NoSuchElementException e) {
-			throw new ProductServiceException("208","given employee id [" + id+"] doesnot exist in DB" + e.getMessage());
-		}catch(Exception e) {
-			throw new ProductServiceException("209","ProductService exception- soemthing wrong");
+//		try {
+//			Product product = prodRepo.findById(id).get();
+//			if(product.getName().contentEquals("croissants")) {
+//				ProductServiceException pse= new ProductServiceException("exception occured because of business logic");
+//				pse.initCause(new PermissionDeniedDataAccessException("You can't access data for croissants", null));
+//				throw pse;
+//			}
+//			return mapToProductResponse(product);
+//		} catch(IllegalArgumentException e) {
+//			
+//			throw new ProductServiceException("207","ProductService exception- products " + id + " not exist");
+//		} catch (java.util.NoSuchElementException e) {
+//			throw new DAOLayerException("208","given employee id [" + id+"] doesnot exist in DB. " + e.getMessage());
+//		}catch(Exception e) {
+//			throw new ProductServiceException("209","ProductService exception- soemthing wrong");
+//		}
+		
+		//global exception handling
+		Product product = prodRepo.findById(id).get();
+		
+		if(product.getName().contains("croissants")) {
+			throw new CroissantsNameException("300","please dont find croissants");
 		}
 		
+		if(product.getId().contains("0")) {
+			throw new NoSuchElementException("301","Id is 0");
+		}
+		return mapToProductResponse(product);
 		
 	}
 	
