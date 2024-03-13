@@ -19,6 +19,6 @@ public class MyControllerAdvice {
 	
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<String> handleZeroId(NoSuchElementException emptyIdException){
-		return new ResponseEntity<String>("searching for non-existant id is not allowed", HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<String>("searching for this id is not allowed", HttpStatus.NOT_ACCEPTABLE);
 	}
 }

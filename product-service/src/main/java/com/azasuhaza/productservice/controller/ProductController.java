@@ -57,7 +57,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{productid}")
-	public ResponseEntity<?> getProductById(@PathVariable("productid") String id){
+	@ResponseStatus(HttpStatus.OK)
+	public ProductResponse getProductById(@PathVariable("productid") String id){
 
 		//custom exception handling
 //		try {
@@ -78,8 +79,7 @@ public class ProductController {
 //		}
 		
 		//global exception handling
-		ProductResponse pr = productService.getProductById(id);
-		return new ResponseEntity<ProductResponse>(pr, HttpStatus.OK);		
+		return productService.getProductById(id);
 		
 	}
 	

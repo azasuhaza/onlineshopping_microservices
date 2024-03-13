@@ -105,8 +105,8 @@ public class ProductService {
 			throw new CroissantsNameException("300","please dont find croissants");
 		}
 		
-		if(product.getId().contains("0")) {
-			throw new NoSuchElementException("301","Id is 0");
+		if(product.getId().contains("20085")) {
+			throw new NoSuchElementException("301","Id is " + product.getId());
 		}
 		return mapToProductResponse(product);
 		
