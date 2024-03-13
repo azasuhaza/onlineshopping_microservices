@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.azasuhaza.productservice.dto.ProductRequest;
 import com.azasuhaza.productservice.dto.ProductResponse;
+import com.azasuhaza.productservice.exceptions.DAOLayerException;
 import com.azasuhaza.productservice.exceptions.ProductControllerException;
 import com.azasuhaza.productservice.exceptions.ProductServiceException;
 import com.azasuhaza.productservice.service.ProductService;
@@ -57,20 +58,28 @@ public class ProductController {
 	
 	@GetMapping("/{productid}")
 	public ResponseEntity<?> getProductById(@PathVariable("productid") String id){
+
+		//custom exception handling
+//		try {
+//			ProductResponse pr = productService.getProductById(id);
+//			return new ResponseEntity<ProductResponse>(pr, HttpStatus.OK);
+//		}catch(ProductServiceException e) {
+//			ProductControllerException pce= new ProductControllerException(e.getErrorCode(), e.getErrorMessage());
+//			return new ResponseEntity<ProductControllerException>(pce, HttpStatus.BAD_REQUEST);
+//		}catch(DAOLayerException e) {
+//			DAOLayerException pce= new DAOLayerException(e.getErrorCode(), e.getErrorMessage());
+//			return new ResponseEntity<DAOLayerException>(pce, HttpStatus.NOT_FOUND);
+//		} catch(Exception e) {
+//			ProductControllerException pce= 
+//					new ProductControllerException("104", "Controller exception- not able to fetch product id [ " + id + " ]"
+//			+ e.getMessage() + " " + e.getCause());
+//			
+//			return new ResponseEntity<ProductControllerException>(pce, HttpStatus.BAD_GATEWAY);
+//		}
 		
-		try {
-			ProductResponse pr = productService.getProductById(id);
-			return new ResponseEntity<ProductResponse>(pr, HttpStatus.OK);
-		}catch(ProductServiceException e) {
-			ProductControllerException pce= new ProductControllerException(e.getErrorCode(), e.getErrorMessage());
-			return new ResponseEntity<ProductControllerException>(pce, HttpStatus.BAD_REQUEST);
-		} catch(Exception e) {
-			ProductControllerException pce= 
-					new ProductControllerException("104", "Controller exception- not able to fetch product id [ " + id + " ]"
-			+ e.getMessage());
-			
-			return new ResponseEntity<ProductControllerException>(pce, HttpStatus.BAD_REQUEST);
-		}
+		//global exception handling
+		ProductResponse pr = productService.getProductById(id);
+		return new ResponseEntity<ProductResponse>(pr, HttpStatus.OK);		
 		
 	}
 	
